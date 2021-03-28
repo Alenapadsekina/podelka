@@ -153,6 +153,8 @@ let startGame = function(){
   if (document.querySelector(".message")) document.querySelector(".message").remove();
   switchBtn(rollDiceBtn, "on");
   switchBtn(hold, "off");
+  settings.killerCombo = randomNumbers(2);
+  settings.winnerCombo = randomNumbers(2);
   for (let i = 0; i<2; i++){
       players[i].playerName.textContent = players[i].name;
       players[i].score.textContent = 0;
