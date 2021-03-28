@@ -1,0 +1,235 @@
+html {
+  background: linear-gradient(to right, rgb(0, 143, 43), rgb(0, 65, 139));
+}
+#home {
+  background-color: rgb(255, 255, 255, 0.8);
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 5%;
+  top: 0%;
+  border-radius: 25px;
+}
+.test {
+  background-color: rgb(255, 255, 255);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 36px;
+}
+/* GAME FIELD*/
+.gameplay {
+  position: absolute;
+  width: 900px;
+  height: 500px;
+  background-color: rgb(255, 255, 255, 0.1);
+  border-radius: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.player {
+  width: 50%;
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.player1 {
+  position: absolute;
+  left: 0px;
+  background-color: rgb(255, 255, 255, 0.2);
+}
+.player2 {
+  position: absolute;
+  right: 0px;
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.current {
+  background: rgb(192, 47, 87);
+  bottom: 5%;
+  width: 150px;
+  height: 70px;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: center;
+  color: whitesmoke;
+}
+
+.name {
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  text-align: center;
+  width: 150px;
+  height: 70px;
+  top: 10%;
+}
+
+.score {
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  text-align: center;
+  width: 150px;
+  height: 70px;
+  top: 30%;
+}
+
+.left {
+  position: absolute;
+  left: 20%;
+}
+
+.right {
+  position: absolute;
+  right: 20%;
+}
+.title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%);
+}
+.current-number {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 24px;
+}
+/*BUTTONS*/
+.buttons-panel {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  width: 300px;
+  height: 100%;
+  font-weight: bold;
+}
+button {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  height: 30px;
+  border-radius: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#new-game {
+  position: absolute;
+  top: 5%;
+  color: whitesmoke, 0.5;
+}
+#roll-dice {
+  position: absolute;
+  bottom: 15%;
+}
+#hold {
+  position: absolute;
+  bottom: 5%;
+}
+
+/* DICES*/
+.dices {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  top: 30%;
+}
+
+.dice {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px rgb(44, 44, 44);
+  position: relative;
+  visibility: hidden;
+}
+#black-dice {
+  background: rgb(0, 0, 0);
+  /* visibility: hidden; */
+}
+
+#white-dice {
+  background: rgb(255, 255, 255);
+  /* visibility: hidden; */
+}
+.dot1,
+.dot2 {
+  visibility: hidden;
+}
+#dot01,
+#dot11 {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  /* visibility: hidden; */
+}
+#dot02,
+#dot12 {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  /* visibility: hidden; */
+}
+#dot03,
+#dot13 {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  /* visibility: hidden; */
+}
+#dot04,
+#dot14 {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  /* visibility: hidden; */
+}
+#dot06,
+#dot16 {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  /* visibility: hidden; */
+}
+#dot05,
+#dot15 {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  /* visibility: hidden; */
+}
+#dot07,
+#dot17 {
+  position: absolute;
+  bottom: 40%;
+  left: 50%;
+  transform: translate(-50%);
+  /* visibility: hidden; */
+}
+
+/* WINNER */
+.winner {
+  right: 50%;
+  margin-top: 5%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+.current-player {
+  visibility: hidden;
+}

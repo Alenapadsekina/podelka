@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game</title>
+    <link rel="stylesheet" href="styles2.css" />
+  </head>
+  <body>
+    <nav id="nav-panel">
+      <button id="home" onclick="location.href='../index/index.html'">
+        🤏
+      </button>
+    </nav>
+    <main class="gameplay">
+      <div class="player player1">
+        <div class="name left" id="name--1">PLAYER 1</div>
+        <div class="score left" id="score--1"></div>
+        <div class="current left">
+          <div class="title">CURRENT</div>
+          <div class="current-number" id="current--1"></div>
+        </div>
+      </div>
+      <div class="player player2">
+        <div class="name right" id="name--2">PLAYER 2</div>
+        <div class="score right" id="score--2"></div>
+        <div class="current right">
+          <div class="title">CURRENT</div>
+          <div class="current-number" id="current--2"></div>
+        </div>
+      </div>
+      <div class="buttons-panel">
+        <div class="button"><button id="new-game">NEW GAME</button></div>
+        <div class="dices">
+          <div id="black-dice" class="dice"></div>
+          <div id="white-dice" class="dice"></div>
+        </div>
+        <div class="button"><button id="roll-dice">ROLL DICES</button></div>
+        <div class="button"><button id="hold">HOLD</button></div>
+      </div>
+    </main>
+    <footer><span id="total--1">0</span> ---- <span id="total--2"></span>0</footer>
+  </body>
+  <script src="script2.js"></script>
+</html>
