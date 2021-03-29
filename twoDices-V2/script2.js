@@ -17,6 +17,8 @@ let player1 = {
   current: document.getElementById("current--1"),
   field: document.querySelector(".player1"),
   total: document.getElementById("total--1"),
+  numbers: document.querySelector(".numbers--1"),
+  statistics:{1: 0, 2:0, 3:0, 4:0, 5:0, 6:0},
 };
 let player2 = {
   name: "Alex",
@@ -25,15 +27,19 @@ let player2 = {
   current: document.getElementById("current--2"),
   field: document.querySelector(".player2"),
   total: document.getElementById("total--2"),
+  numbers: document.querySelector(".numbers--2"),
+  statistics:{1: 0, 2:0, 3:0, 4:0, 5:0, 6:0},
 };
 
+
+
 let players = [player1, player2];
-let activePlayer;
+let activePlayer = players[1];
 // settings
 let settings = {
   count: 1,
   adjustmentValue: 2,
-  goal: 100,
+  goal: 10,
   selected: "rgba(255, 255, 255, 0.6)",
   unSelected: "rgba(255, 255, 255, 0.2)",
   killerCombo: [],
@@ -52,7 +58,7 @@ let dotsOnDice = new Map([
 ]);
 
 
-let diceView2 = new Map([
+let diceView = new Map([
   [1, [4]],
   [2, [3, 5]],
   [3, [3, 4, 5]],
@@ -62,14 +68,16 @@ let diceView2 = new Map([
 ]);
 
 let switchActivePlayer = function(){
-  activePlayer = activePlayer === players[0] ? players[1] : players[0];
+  activePlayer.field.style.backgroundColor = settings.unSelected;
+  activePlayer = activePlayer === players[1] ? players[0] : players[1];
   switchBtn(holdBtn, "off");
+  activePlayer.field.style.backgroundColor = settings.selected;
 }
 
 let displayDice = function (diceId, numberOnDice) {
   dices[diceId].style.opacity = 100;
   dices[diceId].innerHTML = '';
-  diceView2.get(numberOnDice).forEach((dot) =>
+  diceView.get(numberOnDice).forEach((dot) =>
       dices[diceId].insertAdjacentHTML("afterbegin", `<div class="dot" style="${dotsOnDice.get(dot).style}">${settings.symbols[diceId]}</div>`));
 };
 
@@ -80,12 +88,12 @@ let checkWinOrLose = function(player, arr){
     player.current.textContent = 0;
     displayPlayerResult(player, "lose");
     return true;
-   } else if (arr.join('') === settings.winnerCombo.join('')){
-     displayPlayerResult(player, "lucky");
-    return true;
-      }
-
-}
+   }
+   if (arr.join('') === settings.winnerCombo.join('')){
+    displayPlayerResult(player, "lucky");
+    return true;  
+  }
+};
 
 
 let rollDice = function(){
@@ -93,7 +101,8 @@ let rollDice = function(){
   let numbers = randomNumbers(2);
   for (let i=0; i<2; i++){
     displayDice(i, numbers[i]);
-    dices[i].value = numbers[i];
+    // dices[i].value = numbers[i];
+   activePlayer.statistics[numbers[i]] += 1;
   }
   if (!checkWinOrLose(activePlayer, numbers)){
     if (!numbers.includes(1)) {
@@ -104,36 +113,71 @@ let rollDice = function(){
           activePlayer.score.textContent = 0;
       }
       activePlayer.current.textContent = 0;
-      activePlayer.field.style.backgroundColor = settings.unSelected;
       switchActivePlayer();
-      activePlayer.field.style.backgroundColor = settings.selected;
-
-
         }
   }
-
 };
 
+let results = {
+  win: {
+    style: "rgba(0, 255, 250, 0.6)",
+//    message: `<div class="message">${player.name} wins!</div>`
+  },
+  lose: {
+    style: "rgba(255, 0, 0, 0.6)",
+ //   message: `<div class="message">${player.name} lost! 🖕</div>`
+    },
+  lucky:{
+    style: "rgba(255, 200, 0, 0.7)",
+ //   message: `<div class="message">Lucky shot! ${player.name} wins!</div>`
+    },
+}
+
+let addPointToWinner = function(){
+  return activePlayer.total.textContent = Number(activePlayer.total.textContent) + 1;
+};
+let statisticsToConsole = function(){
+  console.log(player1.statistics);
+  console.log(player2.statistics);
+};
 
 function displayPlayerResult(player, result) {
   if (result == "win") {
-    player.field.style.backgroundColor = "rgba(0, 255, 250, 0.6)";
-    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">${player1.name} wins!</div>`);
-    activePlayer.total.textContent = Number(activePlayer.total.textContent) + 1;
+    player.field.style.backgroundColor = results.win.style;
+    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">${player.name} wins!</div>`);
+    addPointToWinner();
   } else if (result == "lose") {
-    player.field.style.backgroundColor = "rgba(255, 0, 0, 0.6)";
-    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">${player1.name} lost! 🖕</div>`);
+    player.field.style.backgroundColor = results.lose.style;
+    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">${player.name} lost! 🖕</div>`);
     switchActivePlayer();
-    activePlayer.total.textContent = Number(activePlayer.total.textContent) + 1;
+    addPointToWinner();
   } else if (result == "lucky") {
-    player.field.style.backgroundColor = "rgba(255, 200, 0, 0.7)";
-    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">Lucky shot! ${player1.name} wins!</div>`);
-    activePlayer.total.textContent = Number(activePlayer.total.textContent) + 1;
+    player.field.style.backgroundColor = results.lucky.style;
+    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">Lucky shot! ${player.name} wins!</div>`);
+    addPointToWinner();
   }
-
   switchBtn(holdBtn, "off");
   switchBtn(rollDiceBtn, "off");
+};
+
+let showStatistics1 = function(e){
+  showStatistics(e.currentTarget.checked, player1);
 }
+let showStatistics2 = function(e){
+  showStatistics(e.currentTarget.checked, player2);
+}
+let showStatistics = function(isChecked, player){
+  if (isChecked){
+    for (let [key, value] of Object.entries(player.statistics)){
+      player.numbers.insertAdjacentHTML("beforeend",`<div class="statNumber"><div>${key} - ${value}</div></div>`);
+    }
+  } else {
+    document.querySelectorAll(".statNumber").forEach(node=>node.remove());
+  }
+};
+
+document.getElementById("statistics--1").addEventListener("click", showStatistics1);
+document.getElementById("statistics--2").addEventListener("click", showStatistics2);
 
 let holdResult = function(){
   activePlayer.score.textContent = Number(activePlayer.score.textContent) + Number(activePlayer.current.textContent);
@@ -142,27 +186,26 @@ let holdResult = function(){
   ) {
     displayPlayerResult(activePlayer, "win");
   } else {
-    activePlayer.field.style.backgroundColor = settings.unSelected;
     switchActivePlayer();
-    activePlayer.field.style.backgroundColor = settings.selected;
   }
-}
+};
 
 let startGame = function(){
-  activePlayer = activePlayer === players[0] ? players[1] : players[0];
   if (document.querySelector(".message")) document.querySelector(".message").remove();
   switchBtn(rollDiceBtn, "on");
   switchBtn(hold, "off");
   settings.killerCombo = randomNumbers(2);
   settings.winnerCombo = randomNumbers(2);
-  for (let i = 0; i<2; i++){
+  for (let i = 0; i<players.length; i++){
       players[i].playerName.textContent = players[i].name;
       players[i].score.textContent = 0;
       players[i].current.textContent = 0;
       players[i].field.style.backgroundColor = settings.unSelected;
     }
-  activePlayer.field.style.backgroundColor = settings.selected;
-}
+    switchActivePlayer();
+  console.log(settings.killerCombo);
+  console.log(settings.winnerCombo);
+};
 
 
 
