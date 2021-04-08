@@ -39,7 +39,7 @@ let activePlayer = players[1];
 let settings = {
   count: 1,
   adjustmentValue: 2,
-  goal: 10,
+  goal: 100,
   selected: "rgba(255, 255, 255, 0.6)",
   unSelected: "rgba(255, 255, 255, 0.2)",
   killerCombo: [],
@@ -72,7 +72,13 @@ let switchActivePlayer = function(){
   activePlayer = activePlayer === players[1] ? players[0] : players[1];
   switchBtn(holdBtn, "off");
   activePlayer.field.style.backgroundColor = settings.selected;
-}
+};
+
+let randomNumbers = function (x) {
+  let arr = [];
+  for (let i =0; i<x; i++) arr.push(Math.trunc(Math.random() * 6 + 1));
+  return arr;
+};
 
 let displayDice = function (diceId, numberOnDice) {
   dices[diceId].style.opacity = 100;
@@ -83,23 +89,39 @@ let displayDice = function (diceId, numberOnDice) {
 
 
 let checkWinOrLose = function(player, arr){
-  if (arr.join('') === settings.killerCombo.join('')) {
+  if (arr.join('') === settings.killerCombo.join('')) console.log("LOSER COMBO");
+  if (arr.join('') === settings.winnerCombo.join('')) console.log("WINNER COMBO");
+  if (arr.join('') === settings.killerCombo.join('') && settings.count % settings.adjustmentValue === 0) {
     player.current.textContent = 0;
     player.current.textContent = 0;
     displayPlayerResult(player, "lose");
     return true;
    }
-   if (arr.join('') === settings.winnerCombo.join('')){
+   if (arr.join('') === settings.winnerCombo.join('')  && settings.count % settings.adjustmentValue === 0){
     displayPlayerResult(player, "lucky");
     return true;  
   }
 };
 
+let adjustNumbers = function(arr){
+  let adjustedNumbers = arr.map(num => {
+    if (num===1){
+      if (settings.count%settings.adjustmentValue!==0) {
+        num = Math.trunc(Math.random() * 5 + 2);
+        console.log(`THE VALUE HAS BEEN CHANGED TO ${num}`)
+      }
+      settings.count +=1;
+    }
+    return num;
+});
+return adjustedNumbers;
+};
+
 
 let rollDice = function(){
   switchBtn(holdBtn, "on");
-  let numbers = randomNumbers(2);
-  for (let i=0; i<2; i++){
+  let numbers = adjustNumbers(randomNumbers(2));
+  for (let i=0; i<numbers.length; i++){
     displayDice(i, numbers[i]);
     // dices[i].value = numbers[i];
    activePlayer.statistics[numbers[i]] += 1;
@@ -118,21 +140,6 @@ let rollDice = function(){
   }
 };
 
-let results = {
-  win: {
-    style: "rgba(0, 255, 250, 0.6)",
-//    message: `<div class="message">${player.name} wins!</div>`
-  },
-  lose: {
-    style: "rgba(255, 0, 0, 0.6)",
- //   message: `<div class="message">${player.name} lost! 🖕</div>`
-    },
-  lucky:{
-    style: "rgba(255, 200, 0, 0.7)",
- //   message: `<div class="message">Lucky shot! ${player.name} wins!</div>`
-    },
-}
-
 let addPointToWinner = function(){
   return activePlayer.total.textContent = Number(activePlayer.total.textContent) + 1;
 };
@@ -142,18 +149,19 @@ let statisticsToConsole = function(){
 };
 
 function displayPlayerResult(player, result) {
+  debugger;
   if (result == "win") {
-    player.field.style.backgroundColor = results.win.style;
-    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">${player.name} wins!</div>`);
+    player.field.style.backgroundImage = "linear-gradient(to top left, #39b385, #9be15d)";
+    navigationPanel.insertAdjacentHTML("afterend", `<div class="win message">${player.name} wins!</div>`);
     addPointToWinner();
   } else if (result == "lose") {
-    player.field.style.backgroundColor = results.lose.style;
-    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">${player.name} lost! 🖕</div>`);
-    switchActivePlayer();
+    player.field.style.backgroundImage = "linear-gradient(to top left, #e52a5a, #ff585f)";
+    navigationPanel.insertAdjacentHTML("afterend", `<div class="lose message">${player.name} lost! 🖕</div>`);
+    //switchActivePlayer();
     addPointToWinner();
   } else if (result == "lucky") {
-    player.field.style.backgroundColor = results.lucky.style;
-    navigationPanel.insertAdjacentHTML("afterend", `<div class="message">Lucky shot! ${player.name} wins!</div>`);
+    player.field.style.backgroundImage = "linear-gradient(to top left, #ffb003, #ffcb03)";
+    navigationPanel.insertAdjacentHTML("afterend", `<div class="lucky message">Lucky shot! ${player.name} wins!</div>`);
     addPointToWinner();
   }
   switchBtn(holdBtn, "off");
@@ -200,6 +208,7 @@ let startGame = function(){
       players[i].playerName.textContent = players[i].name;
       players[i].score.textContent = 0;
       players[i].current.textContent = 0;
+      players[i].field.style.backgroundImage = null;
       players[i].field.style.backgroundColor = settings.unSelected;
     }
     switchActivePlayer();
@@ -209,11 +218,7 @@ let startGame = function(){
 
 
 
-let randomNumbers = function (x) {
-  let arr = [];
-  for (let i =0; i<x; i++) arr.push(Math.trunc(Math.random() * 6 + 1));
-  return arr;
-};
+
 
 
 

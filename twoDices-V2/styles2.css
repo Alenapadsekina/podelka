@@ -46,7 +46,6 @@ footer{
   border: none;
   padding: 0.5rem 2rem;
   font-size: 1.6rem;
-  font-family: inherit;
   text-align: center;
   width: 12rem;
   border-radius: 10rem;
@@ -310,7 +309,7 @@ html {
 }
 .test {
   background-color: rgb(255, 255, 255);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: inherit;
   font-size: 36px;
 }
 /* GAME FIELD*/
@@ -325,38 +324,41 @@ html {
   transform: translate(-50%, -50%);
 }
 
-.numbers--1{
+.stat-player--1{
   position: absolute;
-  width: 200px;
+  width: 100px;
   height: 500px;
-  background-color: rgb(255, 255, 255, 0.1);
-  border-radius: 5px;
   top: 50%;
-  left: 10%;
+  left: 15%;
   transform: translate(-50%, -50%);
+
+}
+
+.stat-player--2{
+  position: absolute;
+  width: 100px;
+  height: 500px;
+  top: 50%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+
+} 
+
+
+.stat{
+  position: absolute;
+  width: 100px;
+  height: 300px;
+  bottom: 10%;
   font-size: 32px;
   color: white;
   vertical-align: middle;
 }
 
-.numbers--2{
-  position: absolute;
-  width: 200px;
-  height: 500px;
-  background-color: rgb(255, 255, 255, 0.1);
-  border-radius: 5px;
-  top: 50%;
-  left: 90%;
-  transform: translate(-50%, -50%);
-  font-size: 32px;
-  color: white;
-  vertical-align: middle;
-}
 
 .player {
   width: 50%;
   height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
 }
 
@@ -372,7 +374,7 @@ html {
 }
 
 .current {
-  background: rgb(192, 47, 87);
+  background-image: linear-gradient(to top left, #d10046,  #ff6eab);
   bottom: 5%;
   width: 150px;
   height: 70px;
@@ -384,7 +386,6 @@ html {
 
 .name {
   position: absolute;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 30px;
   text-align: center;
   width: 150px;
@@ -394,7 +395,6 @@ html {
 
 .score {
   position: absolute;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 40px;
   text-align: center;
   width: 150px;
@@ -440,10 +440,10 @@ button {
   width: 80%;
   height: 30px;
   border-radius: 15px;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   margin-top: 10px;
   font-weight: bold;
+  font-family: inherit;
 }
 
 #new-game {
@@ -496,7 +496,6 @@ button {
 .message {
   right: 50%;
   margin-top: 5%;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 40px;
   text-align: center;
   color: white;
@@ -549,11 +548,11 @@ button {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
 
 input:checked + .slider:before {
@@ -567,8 +566,8 @@ input:checked + .slider:before {
   border-radius: 34px;
 }
 .switch{
-  position: absolute;
-  top: 10%;
+  /* position: absolute;
+  top: 10%; */
 }
 .slider.round:before {
   border-radius: 50%;
