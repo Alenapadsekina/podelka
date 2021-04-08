@@ -149,7 +149,6 @@ let statisticsToConsole = function(){
 };
 
 function displayPlayerResult(player, result) {
-  debugger;
   if (result == "win") {
     player.field.style.backgroundImage = "linear-gradient(to top left, #39b385, #9be15d)";
     navigationPanel.insertAdjacentHTML("afterend", `<div class="win message">${player.name} wins!</div>`);

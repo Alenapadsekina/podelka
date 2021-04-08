@@ -33,14 +33,25 @@ footer{
   position: absolute;
   width: 900px;
   height: 75px;
-  background-color: rgb(255, 255, 255, 0.31);
   font-size: 32px;
-  color: white;
+  color: #444;
   text-align: center;
   vertical-align: middle;
-  bottom: 2%;
+  bottom: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+#total--1{
+  position: absolute;
+  width: 30px;
+  left: 15%;
+
+}
+#total--2{
+  position: absolute;
+  width: 30px;
+  right: 15%;
+
 }
 .login__input {
   border: none;
@@ -351,7 +362,7 @@ html {
   height: 300px;
   bottom: 10%;
   font-size: 32px;
-  color: white;
+  color: #444;
   vertical-align: middle;
 }
 
@@ -498,7 +509,7 @@ button {
   margin-top: 5%;
   font-size: 40px;
   text-align: center;
-  color: white;
+  color: #444;
   font-weight: bold;
 }
 .current-player {
