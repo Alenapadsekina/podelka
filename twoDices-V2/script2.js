@@ -156,7 +156,7 @@ function displayPlayerResult(player, result) {
   } else if (result == "lose") {
     player.field.style.backgroundImage = "linear-gradient(to top left, #e52a5a, #ff585f)";
     navigationPanel.insertAdjacentHTML("afterend", `<div class="lose message">${player.name} lost! 🖕</div>`);
-    //switchActivePlayer();
+    switchActivePlayer();
     addPointToWinner();
   } else if (result == "lucky") {
     player.field.style.backgroundImage = "linear-gradient(to top left, #ffb003, #ffcb03)";
